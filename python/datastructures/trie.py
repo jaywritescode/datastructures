@@ -13,9 +13,9 @@ class Trie:
         for char in word:
             current_node = current_node.get_child(char)
 
-        if current_node.is_terminus:
+        if current_node.payload:
             return False
-        current_node.is_terminus = True
+        current_node.payload = True
         return True
 
     def contains(self, word):
@@ -30,7 +30,7 @@ class Trie:
             if char not in current_node.children:
                 return False
             current_node = current_node.children[char]
-        return current_node.is_terminus
+        return current_node.payload is not None
 
     def __contains__(self, item):
         return self.contains(item)
@@ -38,7 +38,7 @@ class Trie:
     class Node:
         def __init__(self):
             self.children = dict()
-            self.is_terminus = False
+            self.payload = None
 
         def get_child(self, char):
             if char not in self.children:
