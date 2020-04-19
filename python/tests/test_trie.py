@@ -72,6 +72,27 @@ class TestTrie(unittest.TestCase):
         trie.add(word, **payload)
         self.assertDictEqual(trie.get(word), payload)
 
+    def test_get__word_is_in_trie__no_data(self):
+        trie = Trie()
+        word = 'their'
+
+        trie.add(word)
+        self.assertDictEqual(trie.get(word), {})
+
+    def test_get__word_is_in_trie__with_data(self):
+        trie = Trie()
+        word = 'their'
+        payload = {'weight': 25}
+
+        trie.add(word, **payload)
+        self.assertDictEqual(trie.get(word), payload)
+
+    def test_get__word_not_in_trie(self):
+        trie = Trie()
+        word = 'their'
+
+        self.assertIsNone(trie.get(word))
+
     def test_contains(self):
         words = ['the', 'their', 'there', 'a', 'any', 'answer', 'by', 'bye']
 
