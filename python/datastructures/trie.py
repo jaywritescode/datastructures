@@ -34,6 +34,34 @@ class Trie:
 
         return current_node.payload if current_node.is_word_terminus() else default
 
+    def search(self, prefix=''):
+        """
+        Searches for all words in the trie that begin with the given prefix.
+
+        :param prefix: the prefix
+        :return: a list of words
+        """
+        results = list()
+
+        current_node = self.root
+        for char in prefix:
+            if char not in current_node.children:
+                return results
+            current_node = current_node.children[char]
+
+        stack = [(prefix, current_node)]
+        while stack:
+            _prefix, _node = stack.pop()
+
+            if _node.is_word_terminus():
+                results.append(_prefix)
+
+            # depth-first search => reverse=True
+            for char in sorted(_node.children.keys(), reverse=True):
+                stack.append((_prefix + char, _node.children[char]))
+
+        return results
+
     def __contains__(self, item):
         return self.get(item) is not None
 

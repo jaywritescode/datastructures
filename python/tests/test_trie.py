@@ -93,6 +93,15 @@ class TestTrie(unittest.TestCase):
 
         self.assertIsNone(trie.get(word))
 
+    def test_search(self):
+        words = ['the', 'their', 'there', 'a', 'any', 'answer', 'by', 'bye']
+
+        trie = Trie()
+        for word in words:
+            trie.add(word)
+
+        self.assertSequenceEqual(trie.search('the'), ['the', 'their', 'there'])
+
     def test_contains(self):
         words = ['the', 'their', 'there', 'a', 'any', 'answer', 'by', 'bye']
 
