@@ -42,7 +42,7 @@ class TestTrie(unittest.TestCase):
         self.assertIn(word, trie)
         self.assertDictEqual(trie.get(word), payload)
 
-    def test_insert__word_is_prefix_in_tree__no_data(self):
+    def test_insert__word_is_prefix_in_trie__no_data(self):
         trie = Trie()
         trie.add('their')
 
@@ -51,7 +51,7 @@ class TestTrie(unittest.TestCase):
 
         self.assertIn(word, trie)
 
-    def test_insert__word_is_prefix_in_tree__with_data(self):
+    def test_insert__word_is_prefix_in_trie__with_data(self):
         trie = Trie()
         trie.add('their')
 
@@ -62,7 +62,7 @@ class TestTrie(unittest.TestCase):
         self.assertIn(word, trie)
         self.assertDictEqual(trie.get(word), payload)
 
-    def test_insert__word_is_already_in_tree__update_data(self):
+    def test_insert__word_is_already_in_trie__update_data(self):
         trie = Trie()
         trie.add('their', weight=25)
 
