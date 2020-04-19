@@ -48,9 +48,4 @@ class Trie:
 
 if __name__ == '__main__':
     t = Trie()
-    t.add('there')
-    t.add('their')
-    print('there' in t)
-    print('the' in t)
-    print('therefore' in t)
 
