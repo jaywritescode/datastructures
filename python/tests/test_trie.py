@@ -12,16 +12,15 @@ class TestTrie(unittest.TestCase):
 
         self.assertIn(word, trie)
 
-    @unittest.expectedFailure
     def test_insert__zero_length_prefix__with_data(self):
         trie = Trie()
 
         word = 'their'
-        value = 25
-        trie.add(word, weight=value)
+        payload = {'weight': 30}
+        trie.add(word, **payload)
 
         self.assertIn(word, trie)
-        self.assertEquals(trie.get(word), value)
+        self.assertDictEqual(trie.get(word), payload)
 
     def test_insert__non_zero_length_prefix__no_data(self):
         trie = Trie()
@@ -32,17 +31,16 @@ class TestTrie(unittest.TestCase):
         trie.add(word)
         self.assertIn(word, trie)
 
-    @unittest.expectedFailure
     def test_insert__non_zero_length_prefix__with_data(self):
         trie = Trie()
         trie.add('their')
 
         word = 'there'
-        value = 30
+        payload = {'weight': 30}
 
-        trie.add(word)
+        trie.add(word, **payload)
         self.assertIn(word, trie)
-        self.assertEquals(trie.get(word), value)
+        self.assertDictEqual(trie.get(word), payload)
 
     def test_insert__word_is_prefix_in_tree__no_data(self):
         trie = Trie()
@@ -53,28 +51,26 @@ class TestTrie(unittest.TestCase):
 
         self.assertIn(word, trie)
 
-    @unittest.expectedFailure
     def test_insert__word_is_prefix_in_tree__with_data(self):
         trie = Trie()
         trie.add('their')
 
         word = 'the'
-        value = 30
+        payload = {'weight': 30}
 
-        trie.add(word)
+        trie.add(word, **payload)
         self.assertIn(word, trie)
-        self.assertEquals(trie.get(word), value)
+        self.assertDictEqual(trie.get(word), payload)
 
-    @unittest.expectedFailure
     def test_insert__word_is_already_in_tree__update_data(self):
         trie = Trie()
-        trie.add('their', 25)
+        trie.add('their', weight=25)
 
         word = 'their'
-        value = 30
+        payload = {'weight': 30}
 
-        trie.add(word)
-        self.assertEquals(trie.get(word), value)
+        trie.add(word, **payload)
+        self.assertDictEqual(trie.get(word), payload)
 
     def test_contains(self):
         words = ['the', 'their', 'there', 'a', 'any', 'answer', 'by', 'bye']
