@@ -41,7 +41,7 @@ class Trie:
         :param prefix: the prefix
         :return: a list of words
         """
-        results = list()
+        results = dict()
 
         current_node = self.root
         for char in prefix:
@@ -53,13 +53,15 @@ class Trie:
         while stack:
             _prefix, _node = stack.pop()
 
+            # _node.is_word_terminus() == True ==> _node.payload is not None
             if _node.is_word_terminus():
-                results.append(_prefix)
+                results[_prefix] = _node.payload
 
-            # depth-first search => reverse=True
+            # depth-first search ==> reverse=True
             for char in sorted(_node.children.keys(), reverse=True):
                 stack.append((_prefix + char, _node.children[char]))
 
+        # in python >= 3.7, dict remembers insertion order
         return results
 
     def __contains__(self, item):
