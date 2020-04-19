@@ -39,7 +39,7 @@ class Trie:
         Searches for all words in the trie that begin with the given prefix.
 
         :param prefix: the prefix
-        :return: a list of words
+        :return: the words matching the prefix and their data payloads
         """
         results = dict()
 
@@ -57,11 +57,9 @@ class Trie:
             if _node.is_word_terminus():
                 results[_prefix] = _node.payload
 
-            # depth-first search ==> reverse=True
-            for char in sorted(_node.children.keys(), reverse=True):
+            for char in _node.children.keys():
                 stack.append((_prefix + char, _node.children[char]))
 
-        # in python >= 3.7, dict remembers insertion order
         return results
 
     def __contains__(self, item):

@@ -100,7 +100,7 @@ class TestTrie(unittest.TestCase):
         for word in words:
             trie.add(word)
 
-        self.assertSequenceEqual(list(trie.search('the').keys()), ['the', 'their', 'there'])
+        self.assertSetEqual({x for x in trie.search('the')}, {'the', 'their', 'there'})
 
     def test_contains(self):
         words = ['the', 'their', 'there', 'a', 'any', 'answer', 'by', 'bye']
