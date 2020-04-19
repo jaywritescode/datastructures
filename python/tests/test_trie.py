@@ -1,9 +1,8 @@
 import unittest
 from datastructures.trie import Trie
 
-class TestTrie(unittest.TestCase):
 
-    words = ['the', 'their', 'there', 'a', 'any', 'answer', 'by', 'bye']
+class TestTrie(unittest.TestCase):
 
     def test_insert(self):
         trie = Trie()
