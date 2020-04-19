@@ -39,9 +39,9 @@ class Trie:
         Searches for all words in the trie that begin with the given prefix.
 
         :param prefix: the prefix
-        :return: a list of words
+        :return: the words matching the prefix and their data payloads
         """
-        results = list()
+        results = dict()
 
         current_node = self.root
         for char in prefix:
@@ -53,11 +53,11 @@ class Trie:
         while stack:
             _prefix, _node = stack.pop()
 
+            # _node.is_word_terminus() == True ==> _node.payload is not None
             if _node.is_word_terminus():
-                results.append(_prefix)
+                results[_prefix] = _node.payload
 
-            # depth-first search => reverse=True
-            for char in sorted(_node.children.keys(), reverse=True):
+            for char in _node.children.keys():
                 stack.append((_prefix + char, _node.children[char]))
 
         return results
