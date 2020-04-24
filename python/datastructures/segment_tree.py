@@ -1,18 +1,18 @@
 class SegmentTree:
     def __init__(self, arr, operation):
-        self.arr = arr
+        self.length = len(arr)
         self.operation = operation
-        self.tree = self._construct(1, 0, len(self.arr) - 1)
+        self.tree = self._construct(arr, 1, 0, self.length - 1)
 
-    def _construct(self, vertex, left_boundary, right_boundary, tree=None):
-        tree = tree or [None] * (4 * len(self.arr))
+    def _construct(self, array, vertex, left_boundary, right_boundary, tree=None):
+        tree = tree or [None] * (4 * self.length)
         if left_boundary == right_boundary:
-            tree[vertex] = self.arr[left_boundary]
+            tree[vertex] = array[left_boundary]
         else:
             midpoint = (left_boundary + right_boundary) // 2
 
-            self._construct(vertex * 2, left_boundary, midpoint, tree)
-            self._construct(vertex * 2 + 1, midpoint + 1, right_boundary, tree)
+            self._construct(array, vertex * 2, left_boundary, midpoint, tree)
+            self._construct(array, vertex * 2 + 1, midpoint + 1, right_boundary, tree)
 
             tree[vertex] = self.operation(tree[vertex * 2], tree[vertex * 2 + 1])
 
@@ -26,9 +26,9 @@ class SegmentTree:
         :param right_boundary: the right boundary of the array slice, inclusive
         :return: the result of applying the tree's operation to consecutive elements in the given array slice
         """
-        if left_boundary < 0 or right_boundary >= len(self.arr):
+        if left_boundary < 0 or right_boundary >= self.length:
             raise IndexError
-        return self._query(1, 0, len(self.arr) - 1, left_boundary, right_boundary)
+        return self._query(1, 0, self.length - 1, left_boundary, right_boundary)
 
     def _query(self, vertex, vertex_left_boundary, vertex_right_boundary, query_left_boundary, query_right_boundary):
         if vertex_left_boundary == query_left_boundary and vertex_right_boundary == query_right_boundary:
@@ -52,9 +52,9 @@ class SegmentTree:
         :param value: the new value
         :return: self
         """
-        if index < 0 or index >= len(self.arr):
+        if index < 0 or index >= self.length:
             raise IndexError
-        self._update(1, 0, len(self.arr) - 1, index, value)
+        self._update(1, 0, self.length - 1, index, value)
         return self
 
     def _update(self, vertex, vertex_left_boundary, vertex_right_boundary, index, new_value):
