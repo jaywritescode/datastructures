@@ -1,4 +1,13 @@
+# Binary (min) heap implementation.
+#
+# Supports two operations: insert and deleteMin.
+#
+# All the elements in the heap must be Comparable to each other. That is, for
+# for any `a` and `b` in the heap, `a <=> b` must be non-`nil`.
 class BinaryHeap
+  # Constructs a binary heap with the given values.
+  #
+  # @param values [Array<Comparable>] initial values
   def initialize(values = [])
     @array = [nil] + values
     @size = values.length
@@ -6,6 +15,9 @@ class BinaryHeap
     build
   end
 
+  # Inserts `val` into this binary heap.
+  #
+  # @param val [Comparable] the element
   def insert(val)
     @size += 1
 
@@ -16,7 +28,7 @@ class BinaryHeap
 
       # min-heap property: @array[x] <= @array[x >> 1] && @array[x] <= @array[(x >> 1) + 1]
       break if cmp.nil? || (cmp <=> val).negative?
-      
+
       array[hole] = cmp
       hole = parent_index
     end
@@ -24,6 +36,9 @@ class BinaryHeap
     @array[hole] = val
   end
 
+  # Removes and returns the minimum value from this heap.
+  #
+  # @return [Comparable] the minimum value
   def deleteMin
     return nil if empty?
 
@@ -65,7 +80,7 @@ class BinaryHeap
       end
 
       break if (tmp <=> array[child]) <= 0
-      
+
       array[hole] = array[child]
       hole = child
     end
