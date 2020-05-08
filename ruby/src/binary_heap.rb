@@ -2,8 +2,8 @@
 #
 # Supports two operations: insert and deleteMin.
 #
-# All the elements in the heap must be Comparable to each other. That is, for
-# for any `a` and `b` in the heap, `a <=> b` must be non-`nil`.
+# All the elements in the heap must be Comparable to each other. That is,
+# for any `a` and `b` in the heap, `a <=> b` must be non-nil.
 class BinaryHeap
   # Constructs a binary heap with the given values.
   #
