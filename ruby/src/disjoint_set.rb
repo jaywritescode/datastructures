@@ -24,6 +24,11 @@ class DisjointSet
     union_by_size find(value1), find(value2)
   end
 
+  # Counts the number of sets in the data structure.
+  def count
+    @forest.count(&negative?)
+  end
+
   private
 
   def find_root(index)
