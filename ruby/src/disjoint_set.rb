@@ -48,8 +48,4 @@ class DisjointSet
       @forest[root2] = root1
     end
   end
-
-  def rank_at_root(index)
-    return @forest[index].abs if @forest[index] < 0
-  end
 end
