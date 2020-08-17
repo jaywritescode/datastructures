@@ -18,7 +18,7 @@ class TestDisjointSet < Minitest::Test
   end
 
   def test_find
-    @disjoint_set.forest = [-1, -1, -1, -1, -1, 4, 4, 6]
+    @disjoint_set.forest = [-1, -1, -1, -1, -4, 4, 4, 6]
 
     assert_equal @disjoint_set.find('f'), @disjoint_set.find('h')
     refute_equal @disjoint_set.find('a'), @disjoint_set.find('g')
@@ -29,12 +29,11 @@ class TestDisjointSet < Minitest::Test
     disjoint_set.forest = [-16, 0, 0, 2, 0, 4, 4, 6, 0, 8, 8, 10, 8, 12, 12, 14]
 
     disjoint_set.find('o')
-    assert_equal [-16, 0, 0, 2, 0, 4, 4, 6, 0, 8, 8, 10, 0, 12, 0, 14],
-                 disjoint_set.forest
+    assert_equal [-16, 0, 0, 2, 0, 4, 4, 6, 0, 8, 8, 10, 0, 12, 0, 14], disjoint_set.forest
   end
 
   def test_union
-    @disjoint_set.forest = [-1, -1, -1, -1, -1, 4, 4, 6]
+    @disjoint_set.forest = [-1, -1, -1, -1, -4, 4, 4, 6]
     @disjoint_set.union('d', 'e')
 
     assert @disjoint_set.same_set?('d', 'e')
