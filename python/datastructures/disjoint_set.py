@@ -16,13 +16,6 @@ class DisjointSet:
             raise KeyError
         return self._find(self.indices[value])
 
-    def _find(self, index):
-        if self.forest[index] < 0:
-            return index
-        else:
-            self.forest[index] = self._find(self.forest[index])
-            return self.forest[index]
-
     def union(self, value1, value2):
         """
         Performs on a union the set(s) that the two given values are in.
@@ -32,6 +25,20 @@ class DisjointSet:
         :return: None
         """
         return self._union_by_size(self.find(value1), self.find(value2))
+
+    def count(self):
+        """
+        Counts the number of sets in the data structure.
+        :return: the number of sets in the data structure
+        """
+        return len(list(filter(lambda x: x < 0, self.forest)))
+
+    def _find(self, index):
+        if self.forest[index] < 0:
+            return index
+        else:
+            self.forest[index] = self._find(self.forest[index])
+            return self.forest[index]
 
     def _union_by_size(self, root1, root2):
         if root1 == root2:
