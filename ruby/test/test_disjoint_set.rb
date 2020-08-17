@@ -49,7 +49,7 @@ class TestDisjointSet < Minitest::Test
     @disjoint_set.union('f', 'g')
     assert_equal [-1, -1, -1, 4, -5, 4, 4, 6], @disjoint_set.forest
 
-    # merge two sets of equal rank
+    # merge two sets of equal size
     @disjoint_set.union('a', 'c')
     assert [
       [-2, -1, 0, 4, -5, 4, 4, 6],
