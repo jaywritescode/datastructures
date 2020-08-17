@@ -26,7 +26,7 @@ class DisjointSet
 
   # Counts the number of sets in the data structure.
   def count
-    @forest.count(&negative?)
+    @forest.count(&:negative?)
   end
 
   private
