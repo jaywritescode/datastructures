@@ -1,4 +1,4 @@
-class DisjointSets:
+class DisjointSet:
     def __init__(self, values):
         self.indices = {v: k for k, v in enumerate(values)}
         self.repr = [-1] * len(values)
