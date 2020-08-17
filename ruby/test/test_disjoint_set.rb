@@ -57,4 +57,9 @@ class TestDisjointSet < Minitest::Test
       [2, -1, -2, 4, -5, 4, 4, 6]
     ].include?(@disjoint_set.forest)
   end
+
+  def test_count
+    @disjoint_set.forest = [-1, -1, -1, -1, -4, 4, 4, 6]
+    assert_equal 5, @disjoint_set.count
+  end
 end
