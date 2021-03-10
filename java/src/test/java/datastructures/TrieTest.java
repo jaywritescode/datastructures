@@ -29,14 +29,23 @@ class TrieTest {
         }
 
         @Test
-        @DisplayName("it adds a word with a non-zero length prefix in the trie")
-        void prefixExists() {
-            Trie trie = new Trie();
+        @DisplayName("common prefix in trie")
+        void commonPrefix() throws Exception {
+            var trie = new Trie();
 
-            trie.add("their");
-            trie.add("there");
-            assertTrue(trie.contains("their"));
-            assertTrue(trie.contains("there"));
+            var node = getRoot(trie);
+            node.children.put('d', node = trie.new Node());
+            node.children.put('a', node = trie.new Node());
+            node.children.put('r', node = trie.new Node());
+            node.children.put('k', node = trie.new Node());
+            node.isTerminus = true;
+
+            var words = List.of("darkness", "darken", "darker", "darkened");
+
+            words.forEach(word -> assertThat(trie.add(word)).as("add \"%s\"", word).isTrue());
+
+            var expectedSize = 14;  // number of unique (letter, index) pairs in word list, including one for (𝜀, 0)
+            assertThat(size(trie)).isEqualTo(expectedSize);
         }
 
         @Test
@@ -55,9 +64,13 @@ class TrieTest {
     void contains() throws Exception {
     }
 
-    static int size(Trie trie) throws Exception {
+    static Trie.Node getRoot(Trie trie) throws Exception {
         Field field = Trie.class.getDeclaredField("root");
-        return size((Trie.Node) field.get(trie));
+        return (Trie.Node) field.get(trie);
+    }
+
+    static int size(Trie trie) throws Exception {
+        return size(getRoot(trie));
     }
 
     private static int size(Trie.Node node) {
