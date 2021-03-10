@@ -7,9 +7,7 @@ import org.junit.jupiter.api.Test;
 import java.lang.reflect.Field;
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class TrieTest {
 
@@ -49,14 +47,22 @@ class TrieTest {
         }
 
         @Test
-        @DisplayName("it adds a word that is a prefix of another word in the trie")
-        void isPrefix() {
-            Trie trie = new Trie();
+        @DisplayName("add word that is a prefix of a word in trie")
+        void isPrefix() throws Exception {
+            var trie = new Trie();
 
-            trie.add("their");
-            trie.add("the");
-            assertTrue(trie.contains("their"));
-            assertTrue(trie.contains("the"));
+            var node = getRoot(trie);
+            node.children.put('m', node = trie.new Node());
+            node.children.put('e', node = trie.new Node());
+            node.children.put('t', node = trie.new Node());
+            node.children.put('a', node = trie.new Node());
+            node.children.put('l', node = trie.new Node());
+            node.isTerminus = true;
+
+            var words = List.of("me", "met", "meta");
+
+            words.forEach(word -> assertThat(trie.add(word)).as("add \"%s\"", word).isTrue());
+            assertThat(size(trie)).isEqualTo("metal".length() + 1);
         }
     }
 
