@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import java.lang.reflect.Field;
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -18,11 +19,13 @@ class TrieTest {
         @Test
         @DisplayName("words with no common prefix")
         void noPrefix() throws Exception {
-            Trie trie = new Trie();
+            var trie = new Trie();
             var words = List.of("their", "follow", "car");
 
-            words.forEach(word -> assertTrue(trie.add(word)));
-            assertEquals(size(trie), words.stream().mapToInt(String::length).sum() + 1);
+            words.forEach(word -> assertThat(trie.add(word)).as("add \"%s\"", word).isTrue());
+
+            var expectedSize = words.stream().mapToInt(String::length).sum() + 1;
+            assertThat(size(trie)).isEqualTo(expectedSize);
         }
 
         @Test
