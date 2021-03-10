@@ -81,7 +81,7 @@ class TrieTest {
 
     private static int size(Trie.Node node) {
         var children = node.children.values();
-        var descendantCount = children.stream().mapToInt(n -> size(n)).sum();
+        var descendantCount = children.stream().mapToInt(TrieTest::size).sum();
 
         return 1 + descendantCount;
     }
