@@ -4,21 +4,25 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.lang.reflect.Field;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class TrieTest {
 
     @Nested
     @DisplayName("#add")
     class Add {
-
         @Test
-        @DisplayName("it adds a word whose longest prefix in the trie is length zero")
-        void noPrefix() {
+        @DisplayName("words with no common prefix")
+        void noPrefix() throws Exception {
             Trie trie = new Trie();
+            var words = List.of("their", "follow", "car");
 
-            trie.add("their");
-            assertTrue(trie.contains("their"));
+            words.forEach(word -> assertTrue(trie.add(word)));
+            assertEquals(size(trie), words.stream().mapToInt(String::length).sum() + 1);
         }
 
         @Test
@@ -46,5 +50,17 @@ class TrieTest {
 
     @Test
     void contains() throws Exception {
+    }
+
+    static int size(Trie trie) throws Exception {
+        Field field = Trie.class.getDeclaredField("root");
+        return size((Trie.Node) field.get(trie));
+    }
+
+    private static int size(Trie.Node node) {
+        var children = node.children.values();
+        var descendantCount = children.stream().mapToInt(n -> size(n)).sum();
+
+        return 1 + descendantCount;
     }
 }
