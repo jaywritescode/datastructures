@@ -67,7 +67,16 @@ class TrieTest {
     }
 
     @Test
+    @DisplayName("#contains")
     void contains() throws Exception {
+        Trie trie = new Trie();
+        var words = List.of("cat", "freedom", "catchy", "free");
+
+        words.forEach(trie::add);
+
+        words.forEach(word -> assertThat(trie.contains(word)).as("contains \"%s\"", word).isTrue());
+        assertThat(trie.contains("catch")).as("does not contain \"%s\"", "catch").isFalse();
+        assertThat(trie.contains("freed")).as("does not contain \"%s\"", "freed").isFalse();
     }
 
     static Trie.Node getRoot(Trie trie) throws Exception {
