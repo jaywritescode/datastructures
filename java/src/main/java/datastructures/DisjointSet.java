@@ -1,13 +1,13 @@
 package datastructures;
 
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import static com.google.common.base.Preconditions.*;
+import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkNotNull;
 
 
 
@@ -44,7 +44,16 @@ public class DisjointSet<T> {
         return this;
     }
 
-    public int find(T i) {
+    public boolean sameEquivalenceClass(T i, T j) {
+        checkNotNull(i);
+        checkNotNull(j);
+        checkArgument(indices.containsKey(i), "%s not found in forest.", i);
+        checkArgument(indices.containsKey(j), "%s not found in forest.", j);
+
+        return find(i) == find(j);
+    }
+
+    private int find(T i) {
         checkNotNull(i);
         checkArgument(indices.containsKey(i), "%s not found in forest.", i);
 

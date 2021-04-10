@@ -24,7 +24,7 @@ public class DisjointSetTest {
         try (AutoCloseableSoftAssertions softly = new AutoCloseableSoftAssertions()) {
             for (String i : elements) {
                 for (String j : elements) {
-                    softly.assertThat(disjointSet.find(i) == disjointSet.find(j))
+                    softly.assertThat(disjointSet.sameEquivalenceClass(i, j))
                             .as("%s %s %s", i, R.test(i, j) ? "∼" : "≁", j)
                             .isEqualTo(i.charAt(0) == j.charAt(0));
                 }
