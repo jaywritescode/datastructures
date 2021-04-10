@@ -70,9 +70,6 @@ public class DisjointSet<T> {
     }
 
     private int find(T i) {
-        checkNotNull(i);
-        checkArgument(indices.containsKey(i), "%s not found in forest.", i);
-
         return find(indices.get(i));
     }
 
