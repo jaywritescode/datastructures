@@ -38,10 +38,26 @@ public class DisjointSet<T> {
         checkArgument(indices.containsKey(j), "%s not found in forest.", j);
 
         if (!i.equals(j)) {
-            forest[indices.get(j)] = indices.get(i);
+            unionByRank(find(i), find(j));
         }
 
         return this;
+    }
+
+    private void unionByRank(int i, int j) {
+        if (i == j) {
+            return;
+        }
+
+        if (forest[j] < forest[i]) {
+            forest[i] = j;
+        }
+        else {
+            if (forest[i] == forest[j]) {
+                forest[i]--;
+            }
+            forest[j] = i;
+        }
     }
 
     public boolean sameEquivalenceClass(T i, T j) {
