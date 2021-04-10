@@ -9,8 +9,6 @@ import java.util.stream.Collectors;
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 
-
-
 public class DisjointSet<T> {
 
     int[] forest;
@@ -38,13 +36,13 @@ public class DisjointSet<T> {
         checkArgument(indices.containsKey(j), "%s not found in forest.", j);
 
         if (!i.equals(j)) {
-            unionByRank(find(i), find(j));
+            unionByHeight(find(i), find(j));
         }
 
         return this;
     }
 
-    private void unionByRank(int i, int j) {
+    private void unionByHeight(int i, int j) {
         if (i == j) {
             return;
         }

@@ -1,6 +1,7 @@
 package datastructures;
 
 import org.assertj.core.api.AutoCloseableSoftAssertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Field;
@@ -15,6 +16,7 @@ public class DisjointSetTest {
     BiPredicate<String, String> R = (i, j) -> i.charAt(0) == j.charAt(0);
 
     @Test
+    @DisplayName("it #unions and #finds")
     void testUnionAndFind() throws Exception {
         DisjointSet<String> disjointSet = new DisjointSet<>(elements);
 
@@ -35,7 +37,8 @@ public class DisjointSetTest {
     }
 
     @Test
-    void testUnionByRank() throws Exception {
+    @DisplayName("union by height")
+    void testUnionByHeight() throws Exception {
         DisjointSet<String> disjointSet = new DisjointSet<>(elements);
 
         Field indices = DisjointSet.class.getDeclaredField("indices");
